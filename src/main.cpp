@@ -96,7 +96,7 @@ void competition_initialize() {
 void autonomous() {
 
 
-	autoPick = 3;
+	autoPick = 2;
 
 	//close side auton
 	if (autoPick == 1){	
@@ -217,11 +217,12 @@ void autonomous() {
 		pros::delay(50);
 
 		//moving backward and forwards to release intake and grab triball
-		driveMain.move_relative(-180,-127);
+		blockerMain.move(100);
+		pros::delay(200);
+		blockerMain.brake();
 		pickupMain.move(-127);
+		driveMain.move_relative(180,100);
 		pros::delay(400);
-		driveMain.move_relative(190,127);
-		pros::delay(700);
 		driveMain.move(-127);
 		pros::delay(700);
 		driveMain.brake();
