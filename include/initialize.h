@@ -33,7 +33,7 @@
 
 //sensors
 
-    pros::Imu inert(20);
+    pros::Imu inert(19);
 
 
 //controllers
