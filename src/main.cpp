@@ -218,16 +218,16 @@ void autonomous() {
 
 		//moving backward and forwards to release intake and grab triball
 		blockerMain.move(100);
+		pickupMain.move(-127);
 		pros::delay(200);
 		blockerMain.brake();
-		pickupMain.move(-127);
 		driveMain.move_relative(180,100);
-		pros::delay(400);
+		driveMain.move(-50);
+		pros::delay(150);
 		driveMain.move(-127);
-		pros::delay(700);
+		pros::delay(600);
 		driveMain.brake();
 		pros::delay(50);
-		//rightMatchload.set_value(true);
 		driveLeft.move(-60);
 		driveRight.move(5);
 		pros::delay(500);
@@ -236,50 +236,69 @@ void autonomous() {
 		//reteaving the triball in the matchload zone
 		leftMatchload.set_value(true);
 		driveMain.move(-127);
-		pros::delay(150);
+		pros::delay(50);
 		driveMain.brake();
+			// pushes triball out of match loader and turns
 		driveRight.move(-19);
 		driveLeft.move(-127);
-		pros::delay(500);
-		driveMain.move(127);
-		pros::delay(100);
+		pros::delay(300);
 		driveMain.brake();
-		pros::delay(50);
-
-		//pushing both tirballs into the goal
+			//turns tword goal
+		driveRight.move(50);
+		driveLeft.move(-100);
+		pros::delay(400);
+		driveMain.brake();
+			//moves to goal with triballs
 		driveMain.move(-127);
 		pros::delay(450);
+		driveMain.brake();
+		pros::delay(50);
+		// moves away from goal
+		driveMain.move(127);
+		pros::delay(400);
+		leftMatchload.set_value(false);
+		driveMain.brake();
+		pros::delay(50);
+		driveRight.move(50);
+		driveLeft.move(-50);
+		waitUntil((inert.get_heading() >= 115) && (inert.get_heading() <= 125));
+		driveMain.brake();
+		
+/*
+		//pushing both tirballs into the goal
+		driveMain.move(-127);
+		pros::delay(500);
 		driveMain.brake();
 		driveMain.move(60);
 		pros::delay(500);
 		driveMain.brake();
-
+		leftMatchload.set_value(false);
 		driveRight.move(50);
 		driveLeft.move(-50);
 
 		//turing twords the center bar
-		waitUntil((inert.get_heading() >= 145) && (inert.get_heading() <= 155));
-
-		driveMain.brake();
+		waitUntil((inert.get_heading() >= 135) && (inert.get_heading() <= 145));
+		driveMain.brake();*/
+		/*
 		leftMatchload.set_value(false);
 		rightMatchload.set_value(false);
 		pros::delay(50);
-
+*/
 		driveMain.move(-80);
-		pros::delay(950 );
+		pros::delay(800 );
 		driveMain.brake();
 
 		//turing in circle and releasing triball at certain angle
 		driveRight.move(50);
 		driveLeft.move(-50);
-		waitUntil((inert.get_heading() >= 179) && (inert.get_heading() <= 189));
+		waitUntil((inert.get_heading() >= 345) && (inert.get_heading() <= 355));
 		pros::delay(250);
 		pickup.move(127);
 		pros::delay(500);
 		pickup.move(-127);
 		
 		//pointing twords triball at left of centerbar and pickign it up
-		waitUntil((inert.get_heading() >= 345) && (inert.get_heading() <= 355));
+		waitUntil((inert.get_heading() >= 225) && (inert.get_heading() <= 235));
 		driveMain.brake();
 		pros::delay(50);
 		driveMain.move(40);
@@ -294,7 +313,7 @@ void autonomous() {
 		//turning and releasing triball
 		waitUntil((inert.get_heading() >= 225) && (inert.get_heading() <= 235));
 		driveMain.brake();
-		pros::delay(250);
+		pros::delay(250);/*
 		pickup.move(127);
 		pros::delay(500);
 		pickup.brake();
@@ -333,7 +352,7 @@ void autonomous() {
 		driveMain.move(127);
 		pros::delay(300);
 		driveMain.brake();
-		
+		*/
 
 		
 

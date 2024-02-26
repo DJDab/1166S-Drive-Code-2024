@@ -61,7 +61,7 @@
 
 //blocker Motors
 
-    pros::Motor rightBlocker(15,0);
+    pros::Motor rightBlocker(15,1);
     pros::Motor leftBlocker(16,0);
 
     pros::Motor_Group blockerMain({rightBlocker,leftBlocker});
