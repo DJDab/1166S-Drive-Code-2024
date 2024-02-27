@@ -222,6 +222,7 @@ void autonomous() {
 		pros::delay(200);
 		blockerMain.brake();
 		driveMain.move_relative(180,100);
+		pros::delay(400);
 		driveMain.move(-50);
 		pros::delay(150);
 		driveMain.move(-127);
@@ -250,7 +251,7 @@ void autonomous() {
 		driveMain.brake();
 			//moves to goal with triballs
 		driveMain.move(-127);
-		pros::delay(450);
+		pros::delay(500);
 		driveMain.brake();
 		pros::delay(50);
 		// moves away from goal
@@ -291,14 +292,16 @@ void autonomous() {
 		//turing in circle and releasing triball at certain angle
 		driveRight.move(50);
 		driveLeft.move(-50);
-		waitUntil((inert.get_heading() >= 345) && (inert.get_heading() <= 355));
+		waitUntil((inert.get_heading() >= 270) && (inert.get_heading() <= 280));
 		pros::delay(250);
 		pickup.move(127);
 		pros::delay(500);
 		pickup.move(-127);
 		
-		//pointing twords triball at left of centerbar and pickign it up
-		waitUntil((inert.get_heading() >= 225) && (inert.get_heading() <= 235));
+		//pointing twords triball at left of centerbar and picking it up
+		driveRight.move(45);
+		driveLeft.move(-45);
+		waitUntil((inert.get_heading() >= 335) && (inert.get_heading() <= 345));
 		driveMain.brake();
 		pros::delay(50);
 		driveMain.move(40);
@@ -313,7 +316,7 @@ void autonomous() {
 		//turning and releasing triball
 		waitUntil((inert.get_heading() >= 225) && (inert.get_heading() <= 235));
 		driveMain.brake();
-		pros::delay(250);/*
+		pros::delay(250);
 		pickup.move(127);
 		pros::delay(500);
 		pickup.brake();
@@ -346,13 +349,16 @@ void autonomous() {
 		rightMatchload.set_value(false);
 
 		//driving to elevation bar (might cut out because of the nto having enought time to get to bar)
+		blockerMain.move(127);
 		driveRight.move(90);
 		driveLeft.move(35);
 		pros::delay(1100);
 		driveMain.move(127);
 		pros::delay(300);
 		driveMain.brake();
-		*/
+
+
+		
 
 		
 
@@ -463,22 +469,26 @@ void autonomous() {
 		
 		launcherMain.set_brake_modes(MOTOR_BRAKE_COAST);
 
+		//freeing the intake
+		blockerMain.move(100);
+		pros::delay(200);
+		blockerMain.brake();
 
 		//catapult
-		driveLeft.move(-60);
+		driveLeft.move(-80);
 		driveRight.move(-40);
 		pros::delay(525);
 		driveMain.brake();
 		pros::delay(50);
 		driveMain.set_brake_modes(MOTOR_BRAKE_HOLD);
 		launcherMain.move(127);
-		pros::delay(27250);
+		pros::delay(28000);
 		//pros::delay(2500);
 		launcherMain.brake();
 		pros::delay(100);
 		driveMain.set_brake_modes(MOTOR_BRAKE_BRAKE);
 		pros::delay(200);
-		inert.set_heading(16.5);
+		inert.set_heading(20.5);
 		elevationMain.set_value(true);
 		pros::delay(200);
 		elevationMain.set_value(false);
@@ -625,16 +635,19 @@ void autonomous() {
 		pros::delay(500);
 		driveMain.brake();
 
-		//pushing into goal
-		driveRight.move(-127);
-		driveLeft.move(-60);
-		pros::delay(1500);
+		//driving to left goal
+		leftMatchload.set_value(false);
+		rightMatchload.set_value(false);
+		driveRight.move(-50);
+		driveLeft.move(50);
+		waitUntil(inert.get_heading() >= 235 && inert.get_heading() <= 245);
 		driveMain.brake();
+		rightMatchload.set_value(false);
+		pros::delay(50);
 
-		//backing from goal
-		driveMain.move(127);
-		pros::delay(500);
-		driveMain.brake();
+
+
+
 
 		
 
