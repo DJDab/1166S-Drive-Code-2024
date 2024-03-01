@@ -1,5 +1,6 @@
 #include "main.h"
 #include "initialize.h"
+#include "string"
 
 
 /**
@@ -21,7 +22,9 @@ void on_center_button() {
  */
 void initialize() {
 	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
+	pros::lcd::set_text(1, "if you are reading this and your name is");
+	pros::lcd::set_text(2, "not gavin look away");
+	pros::lcd::set_text(5, "gavin is bezdziewczyna");
 
 	pros::lcd::register_btn1_cb(on_center_button);
 }
@@ -36,6 +39,8 @@ elevationMain.set_value(false);
 rightMatchload.set_value(false);
 leftMatchload.set_value(false);
 driveMain.set_brake_modes(MOTOR_BRAKE_COAST);
+blockerMain.set_brake_modes(MOTOR_BRAKE_HOLD);
+blockerMain.brake();
 
 }
 
@@ -96,7 +101,7 @@ void competition_initialize() {
 void autonomous() {
 
 
-	autoPick = 2;
+	autoPick = 3;
 
 	//close side auton
 	if (autoPick == 1){	
@@ -111,8 +116,8 @@ void autonomous() {
 		driveMain.brake();
 
 		//getting matchload
-		driveRight.move(100);
-		driveLeft.move(50);
+		driveRight.move(120);
+		driveLeft.move(40);
 		pros::delay(700);
 		
 		driveRight.move(50);
@@ -120,17 +125,16 @@ void autonomous() {
 		pros::delay(100);
 		rightMatchload.set_value(true);
 		pros::delay(400);
-		driveRight.move(70);
-		driveLeft.move(-10);
-		driveLeft.brake();
+		driveRight.move(90);
+		driveLeft.move(20);
 		pros::delay(600);
 		driveMain.brake();
 
 		//YAHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO moment
 		driveMain.set_brake_modes(MOTOR_BRAKE_BRAKE);
 
-		driveMain.move(-20);
-		pros::delay(200);
+		driveMain.move(120);
+		pros::delay(400);
 		driveMain.brake();
 
 		driveMain.move(-40);
@@ -143,7 +147,6 @@ void autonomous() {
 		driveRight.move(40);
 		pros::delay(100);
 		driveMain.brake();
-		rightMatchload.set_value(true);
 
 		
 
@@ -154,28 +157,28 @@ void autonomous() {
 		driveRight.move(127);
 		driveLeft.move(-127);
 		pros::delay(250);
-		rightMatchload.set_value(false);
 		pros::delay(250);
 		driveMain.brake();
 		pros::delay(200);
 
 		master.print(0,0,"touchy");
+		rightMatchload.set_value(false);
 
-		/*
+		
 
 		//touchy touchy eleveation pole
 		
-		driveRight.move(-50);
-		driveLeft.move(50);
-		waitUntil((inert.get_heading() >= 220) && (inert.get_heading() <= 230));
+		driveRight.move(50);
+		driveLeft.move(-50);
+		waitUntil((inert.get_heading() >= 310) && (inert.get_heading() <= 320));
 		driveMain.brake();
 		pros::delay(50);
-		driveMain.move(100);
-		pros::delay(350);
+		driveMain.move(-127);
+		pros::delay(450);
 		driveMain.brake();
 		driveLeft.move(50);
 		driveRight.move(-50);
-		waitUntil((inert.get_heading() >= 120) && (inert.get_heading() <= 130));
+		waitUntil((inert.get_heading() >= 230) && (inert.get_heading() <= 240));
 		driveMain.brake();
 
 		pros::delay(100);
@@ -200,7 +203,7 @@ void autonomous() {
 		pros::delay(400);
 		driveMain.brake();
 		
-		*/
+		
 
 		
 
@@ -219,10 +222,10 @@ void autonomous() {
 		//moving backward and forwards to release intake and grab triball
 		blockerMain.move(100);
 		pickupMain.move(-127);
-		pros::delay(200);
-		blockerMain.brake();
-		driveMain.move_relative(180,100);
 		pros::delay(400);
+		blockerMain.brake();
+		driveMain.move_relative(90,100);
+		pros::delay(200);
 		driveMain.move(-50);
 		pros::delay(150);
 		driveMain.move(-127);
@@ -245,18 +248,23 @@ void autonomous() {
 		pros::delay(300);
 		driveMain.brake();
 			//turns tword goal
-		driveRight.move(50);
+		leftMatchload.set_value(false);
+		driveRight.move(-20);
 		driveLeft.move(-100);
-		pros::delay(400);
+		pros::delay(600);
 		driveMain.brake();
+		pros::delay(100);
+		
 			//moves to goal with triballs
+		
+		
 		driveMain.move(-127);
-		pros::delay(500);
+		pros::delay(600);
 		driveMain.brake();
 		pros::delay(50);
 		// moves away from goal
 		driveMain.move(127);
-		pros::delay(400);
+		pros::delay(300);
 		leftMatchload.set_value(false);
 		driveMain.brake();
 		pros::delay(50);
@@ -290,22 +298,22 @@ void autonomous() {
 		driveMain.brake();
 
 		//turing in circle and releasing triball at certain angle
-		driveRight.move(50);
-		driveLeft.move(-50);
-		waitUntil((inert.get_heading() >= 270) && (inert.get_heading() <= 280));
+		driveRight.move(55);
+		driveLeft.move(-55);
+		waitUntil((inert.get_heading() >= 190) && (inert.get_heading() <= 200));
 		pros::delay(250);
 		pickup.move(127);
 		pros::delay(500);
 		pickup.move(-127);
 		
 		//pointing twords triball at left of centerbar and picking it up
-		driveRight.move(45);
-		driveLeft.move(-45);
-		waitUntil((inert.get_heading() >= 335) && (inert.get_heading() <= 345));
+		driveRight.move(50);
+		driveLeft.move(-50);
+		waitUntil((inert.get_heading() >= 350) && (inert.get_heading() <= 359));
 		driveMain.brake();
 		pros::delay(50);
-		driveMain.move(40);
-		pros::delay(1000);
+		driveMain.move(70);
+		pros::delay(600);
 		driveMain.brake();
 		pros::delay(50);
 		driveMain.move_relative(-360,-127);
@@ -318,7 +326,7 @@ void autonomous() {
 		driveMain.brake();
 		pros::delay(250);
 		pickup.move(127);
-		pros::delay(500);
+		pros::delay(300);
 		pickup.brake();
 		pros::delay(50);
 		driveRight.move(60);
@@ -328,14 +336,15 @@ void autonomous() {
 		waitUntil((inert.get_heading() >= 70) && (inert.get_heading() <= 80));
 		driveMain.brake();
 		leftMatchload.set_value(true);
+		rightMatchload.set_value(true);
 		pros::delay(50);
 		driveMain.move(-120);
 		pros::delay(300);
 		driveMain.brake();
 		pros::delay(50);
 		rightMatchload.set_value(true);
-		driveLeft.move(30);
-		driveRight.move(-60);
+		driveLeft.move(40);
+		driveRight.move(-70);
 
 		//turning twords goal and driving triballs into goal
 		waitUntil((inert.get_heading() >= 5) && (inert.get_heading() <= 15))
@@ -349,12 +358,18 @@ void autonomous() {
 		rightMatchload.set_value(false);
 
 		//driving to elevation bar (might cut out because of the nto having enought time to get to bar)
+		blockerMain.set_brake_modes(MOTOR_BRAKE_HOLD);
 		blockerMain.move(127);
-		driveRight.move(90);
-		driveLeft.move(35);
+		driveRight.move(127);
+		driveLeft.move(42);
 		pros::delay(1100);
+		blockerMain.brake();
 		driveMain.move(127);
 		pros::delay(300);
+		driveMain.brake();
+		driveRight.move(-127);
+		driveLeft.move(127);
+		pros::delay(250);
 		driveMain.brake();
 
 
@@ -468,6 +483,7 @@ void autonomous() {
 		
 		
 		launcherMain.set_brake_modes(MOTOR_BRAKE_COAST);
+		blockerMain.set_brake_modes(MOTOR_BRAKE_COAST);
 
 		//freeing the intake
 		blockerMain.move(100);
@@ -482,16 +498,13 @@ void autonomous() {
 		pros::delay(50);
 		driveMain.set_brake_modes(MOTOR_BRAKE_HOLD);
 		launcherMain.move(127);
-		pros::delay(28000);
-		//pros::delay(2500);
+		//pros::delay(28000);
+		pros::delay(2500);
 		launcherMain.brake();
 		pros::delay(100);
 		driveMain.set_brake_modes(MOTOR_BRAKE_BRAKE);
 		pros::delay(200);
 		inert.set_heading(20.5);
-		elevationMain.set_value(true);
-		pros::delay(200);
-		elevationMain.set_value(false);
 
 		
 
@@ -502,7 +515,7 @@ void autonomous() {
 		pros::delay(50);
 		driveLeft.move(-50);
 		driveRight.move(50);
-		waitUntil((inert.get_heading() >= 132) && (inert.get_heading() <= 142))
+		waitUntil((inert.get_heading() >= 140) && (inert.get_heading() <= 150))
 		driveMain.brake();
 		pros::delay(100);
 
@@ -539,6 +552,8 @@ void autonomous() {
 		driveMain.brake();
 
 		//right side of goal triple
+		rightMatchload.set_value(false);
+		leftMatchload.set_value(false);
 		driveMain.move(60);
 		pros::delay(500);
 		driveRight.move(-127);
@@ -562,7 +577,8 @@ void autonomous() {
 		driveRight.move(-127);
 		driveLeft.move(-127);
 		pros::delay(700);
-		driveMain.brake(); 
+		driveMain.brake();
+		leftMatchload.set_value(true); 
 
 
 		//80 230 to face goal
@@ -585,8 +601,8 @@ void autonomous() {
 		pros::delay(1400);
 		driveMain.brake();
 		pros::delay(50);
-		driveRight.move(-50);
-		driveLeft.move(50);
+		driveRight.move(-55);
+		driveLeft.move(55);
 		waitUntil(inert.get_heading() >= 205 && inert.get_heading() <=215);
 		driveMain.brake();
 
@@ -612,13 +628,14 @@ void autonomous() {
 
 		//reverses out of goal and turns 90 degrees and drives forewards and turns twrods goal and pushes in.
 		waitUntil(inert.get_heading() >= 265 && inert.get_heading() <= 275);
+		rightMatchload.set_value(true);
 		driveMain.brake();
 		pros::delay(50);
 		driveMain.move(-80);
-		pros::delay(400);
+		pros::delay(500);
 		driveMain.brake();
 		pros::delay(50);
-		driveRight.move(-50);
+		driveRight.move(-60);
 		driveLeft.move(50);
 		waitUntil(inert.get_heading() >= 185 && inert.get_heading() <=195);
 		driveMain.brake();
@@ -638,9 +655,9 @@ void autonomous() {
 		//driving to left goal
 		leftMatchload.set_value(false);
 		rightMatchload.set_value(false);
-		driveRight.move(-50);
-		driveLeft.move(50);
-		waitUntil(inert.get_heading() >= 235 && inert.get_heading() <= 245);
+		driveRight.move(40);
+		driveLeft.move(-40);
+		waitUntil(inert.get_heading() >= 220 && inert.get_heading() <= 230);
 		driveMain.brake();
 		rightMatchload.set_value(false);
 		pros::delay(50);
@@ -667,7 +684,7 @@ void autonomous() {
 
 		//moves tword triball on long barrier
 		myPID(-1360, rightDriveRear.get_position());
-		pros::delay(500);
+		pros::delay(500); 
 		waitUntil(pidRun==false);
         
 		pros::lcd::set_text(1,"balls");
@@ -709,7 +726,7 @@ void autonomous() {
 
 
 
-}
+}// end of auton
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -795,14 +812,6 @@ void opcontrol() {
 
 
 
-		//blocker emergency shutoff
-		if ((partner.get_digital(pros::E_CONTROLLER_DIGITAL_A) == true)){
-			blockerMain.set_brake_modes(MOTOR_BRAKE_COAST);
-
-		}else if ((partner.get_digital(pros::E_CONTROLLER_DIGITAL_X) == true)){
-			blockerMain.set_brake_modes(MOTOR_BRAKE_HOLD);
-
-		}
 
 
 		//elevation code
@@ -906,8 +915,10 @@ void opcontrol() {
 		
 
 		pros::delay(50);
-	}	
-}
+
+	}//end of driver forever loop	
+
+}// end of op controll
 
 
 
@@ -948,7 +959,7 @@ void opcontrol() {
 			}
 			
 		}
-	}
+	}// end of my pid
 
 // 0 = left/counter clockwise, 1 = right/clockwise for direction
 	void myPIDinert(int setpoint, int curRead, int dir){
@@ -987,7 +998,25 @@ void opcontrol() {
 			
 			pros::delay(15);
 		}
-	}
+	}//end of mypid inert
 
-	void loopPID(int setpoint, int curRead){
-	}
+
+	// dir decides dirction of rotation 0=left and 1=right
+	void turnTo(int setpoint, int dir){
+		
+		while(!((inert.get_heading() >= setpoint - 5) and (inert.get_heading() <= setpoint + 5))){
+
+			if (dir == 0){
+				driveRight.move(50);
+				driveLeft.move(-50);
+
+			}else if (dir == 1){
+				driveRight.move(-50);
+				driveLeft.move(50);
+				
+			}
+
+		}
+
+	}//end of turn to 
+	

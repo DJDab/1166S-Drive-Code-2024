@@ -74,7 +74,7 @@ void competition_initialize(void);
 void opcontrol(void);
 void myPID(int setpoint, int curRead);
 void myPIDinert(int setpoint, int curRead, int dir);
-void loopPID(int setpoint, int curRead);
+void turnTo(int setpoint, int dir);
 #ifdef __cplusplus
 }
 #endif
